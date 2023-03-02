@@ -1,4 +1,7 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using DB;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -7,7 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<CodeChallengeContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("CodeChallengeConnection"))
+);
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<CodeChallengeContext>();
+    dataContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
