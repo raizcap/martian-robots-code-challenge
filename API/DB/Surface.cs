@@ -9,13 +9,13 @@ namespace DB
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int id { get; set; }
+		public int surfaceId { get; set; }
 
-		[Required]
 		public int xSize { get; set; }
 
-		[Required]
 		public int ySize { get; set; }
-	}
+
+		public ICollection<LostRobot> LostRobots { get; set; } = new List<LostRobot>();
+    }
 }
 

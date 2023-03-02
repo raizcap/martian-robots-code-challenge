@@ -19,14 +19,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dataContext = scope.ServiceProvider.GetRequiredService<CodeChallengeContext>();
-    if (dataContext.Database.EnsureCreated() == false)
-    {
-        Environment.Exit(1);
-    }
-    else
-    {
-        dataContext.Database.Migrate();
-    }
+    dataContext.Database.Migrate();
 }
 
 // Configure the HTTP request pipeline.

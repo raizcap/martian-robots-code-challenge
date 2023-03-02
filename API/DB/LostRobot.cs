@@ -7,25 +7,20 @@ namespace DB
     [Table("LostRobots")]
     public class LostRobot
 	{
-		public LostRobot()
-		{
-		}
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
 
-        [Required]
-        public int surfaceId { get; set; }
-
-        [Required]
         public int xCoordinate { get; set; }
 
-        [Required]
         public int yCoordinate { get; set; }
 
-        [Required]
         [MaxLength(1)]
-        public string Orientation { get; set; }
+        public string orientation { get; set; } = "";
 
-        [ForeignKey("surfaceId")]
-        public Surface SurfaceId { get; set; }
+        public int surfaceId { get; set; }
+
+        public Surface surface { get; set; } = new Surface();
     }
 }
 
