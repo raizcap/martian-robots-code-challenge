@@ -10,7 +10,7 @@
 
 There are two ways to prepare the environment: execute the OS dependant setup script or execute the docker commands in the correct order.
 
-- Executing the setup script: run the MacSetup.sh script in the folder where it's located. If there is no error, you should see two Docker containers running: CodeChallengeDB and CodeChallengeAPI.
+- Executing the setup script: run the MacSetup.sh script in the folder where it's located.
 
 - Running the next commands in Terminal (Mac) or Powershell (Windows) for creating and running the Docker containters:
 
@@ -28,4 +28,6 @@ There are two ways to prepare the environment: execute the OS dependant setup sc
 
   4. Run the previously created Docker image for executing the API: 
 
-            docker run -d --name CodeChallengeAPI --network codechallenge-network -p 5005:5005 -e 'ASPNETCORE_URLS=http://*:5005' code-challenge:v1
+            docker run --name CodeChallengeAPI --network codechallenge-network -p 5005:5005 -e 'ASPNETCORE_URLS=http://*:5005' -d code-challenge:v1
+
+If there is no error, you should see two Docker containers running: CodeChallengeDB and CodeChallengeAPI.
