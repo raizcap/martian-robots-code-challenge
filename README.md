@@ -10,7 +10,7 @@
 
 There are two ways to prepare the environment: execute the OS dependant setup script or execute the docker commands in the correct order.
 
-- Executing the setup script: run the MacSetup.sh script in the folder where it's located.
+- Executing the setup script: run the <u>**MacSetup.sh**</u> script in the folder where it's located.
 
 - Running the next commands in Terminal (Mac) or Powershell (Windows) for creating and running the Docker containters:
 
