@@ -1,17 +1,21 @@
-﻿using DB;
+﻿using API.Services;
+using DB;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+RegisterServices();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CodeChallengeContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("CodeChallengeConnection"))
+    options => {
+        var dbConnectionString = builder.Configuration.GetConnectionString("CodeChallengeConnection");
+        options.UseSqlServer(dbConnectionString);
+        }
 );
 
 var app = builder.Build();
@@ -31,3 +35,8 @@ app.MapControllers();
 
 app.Run();
 
+void RegisterServices()
+{
+    builder.Services.AddSingleton<ILostRobotsService, LostRobotsService>();
+    builder.Services.AddSingleton<ISurfacesService, SurfacesService>();
+}

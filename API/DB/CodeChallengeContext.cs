@@ -24,8 +24,11 @@ namespace DB
                     table.xSize,
                     table.ySize
                 }).IsUnique();
-
-            modelBuilder.Entity<LostRobot>().HasOne(a => a.surface).WithMany(b => b.LostRobots);
+            
+            modelBuilder.Entity<Surface>()
+                .HasMany(a => a.LostRobots)
+                .WithOne(b => b.surface)
+                .HasForeignKey(surface => surface.surfaceId);
         }
     }
 }
