@@ -7,7 +7,11 @@ namespace API.Services
 	{
 		IEnumerable<Surface> GetAllSurfaces();
 
-		IEnumerable<Surface> GetSurfaceOfSize(int xSize, int ySize);
+		Surface? GetSurfaceBySize(int xSize, int ySize);
+
+		Surface? GetSurfaceById(int surfaceId);
+
+		Surface AddSurface(int xSize, int ySize);
 	}
 }
 

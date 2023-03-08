@@ -18,7 +18,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetAllSurfaces")]
-        [ProducesResponseType(typeof(IEnumerable<LostRobot>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Surface>), StatusCodes.Status200OK)]
         public IActionResult GetAllSurfaces()
         {
             var surfaces = SurfacesService.GetAllSurfaces();
@@ -27,11 +27,22 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("GetSurfaceOfSize")]
-        [ProducesResponseType(typeof(IEnumerable<LostRobot>), StatusCodes.Status200OK)]
-        public IActionResult GetSurfaceOfSize([FromQuery] int xSize, [FromQuery] int ySize)
+        [Route("GetSurfaceBySize")]
+        [ProducesResponseType(typeof(Surface), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult GetSurfaceBySize([FromQuery] int xSize, [FromQuery] int ySize)
         {
-            var surface = SurfacesService.GetSurfaceOfSize(xSize, ySize);
+            var surface = SurfacesService.GetSurfaceBySize(xSize, ySize);
+
+            return Ok(surface);
+        }
+
+        [HttpPost]
+        [Route("AddSurface")]
+        [ProducesResponseType(typeof(Surface), StatusCodes.Status200OK)]
+        public IActionResult AddSurface([FromQuery] int xSize, [FromQuery] int ySize)
+        {
+            var surface = SurfacesService.AddSurface(xSize, ySize);
 
             return Ok(surface);
         }

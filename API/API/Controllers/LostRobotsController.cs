@@ -29,11 +29,22 @@ namespace API.Controllers
         [HttpGet]
         [Route("LostRobotsForASurface")]
         [ProducesResponseType(typeof(IEnumerable<LostRobot>), StatusCodes.Status200OK)]
-        public IActionResult GetLostRobotsForASurface([FromQuery] int x, [FromQuery] int y)
+        public IActionResult GetLostRobotsForASurface([FromQuery] int surfaceId)
         {
-            var lostRobots = LostRobotsService.GetLostRobotsOfSurface(x, y);
+            var lostRobots = LostRobotsService.GetLostRobotsOfSurface(surfaceId);
 
             return Ok(lostRobots);
+        }
+
+        [HttpPost]
+        [Route("AddLostRobot")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddLostRobot([FromBody] LostRobot lostRobot)
+        {
+            (bool added, string error) = LostRobotsService.AddLostRobot(lostRobot);
+
+            return added ? Ok() : BadRequest(error);
         }
     }
 }

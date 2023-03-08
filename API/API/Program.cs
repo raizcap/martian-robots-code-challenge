@@ -37,6 +37,6 @@ app.Run();
 
 void RegisterServices()
 {
-    builder.Services.AddSingleton<ILostRobotsService, LostRobotsService>();
     builder.Services.AddSingleton<ISurfacesService, SurfacesService>();
+    builder.Services.AddSingleton<ILostRobotsService, LostRobotsService>();
 }

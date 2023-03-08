@@ -6,6 +6,8 @@ namespace API.Services
     {
         IEnumerable<LostRobot> GetAllLostRobots();
 
-        IEnumerable<LostRobot> GetLostRobotsOfSurface(int x, int y);
+        IEnumerable<LostRobot> GetLostRobotsOfSurface(int surfaceId);
+
+        (bool, string) AddLostRobot(LostRobot lostRobot);
     }
 }
