@@ -42,6 +42,16 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult AddLostRobot([FromBody] LostRobot lostRobot)
         {
+            if (lostRobot.xCoordinate < 0 || lostRobot.xCoordinate > 50)
+            {
+                return BadRequest($"The surface size x={lostRobot.xCoordinate} is not valid");
+            }
+
+            if (lostRobot.yCoordinate < 0 || lostRobot.yCoordinate > 50)
+            {
+                return BadRequest($"The surface size y={lostRobot.yCoordinate} is not valid");
+            }
+
             (bool added, string error) = LostRobotsService.AddLostRobot(lostRobot);
 
             return added ? Ok() : BadRequest(error);
