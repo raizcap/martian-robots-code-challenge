@@ -1,12 +1,19 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DB
 {
     [Table("LostRobots")]
     public class LostRobot
 	{
+        public LostRobot()
+        {
+            orientation = "";
+            surface = new Surface();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
@@ -20,7 +27,8 @@ namespace DB
 
         public int surfaceId { get; set; }
 
-        public Surface surface { get; set; } = new Surface();
+        [JsonIgnore]
+        public Surface surface { get; set; }
     }
 }
 

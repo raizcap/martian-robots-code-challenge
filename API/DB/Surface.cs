@@ -7,6 +7,11 @@ namespace DB
     [Table("Surfaces")]
     public class Surface
 	{
+		public Surface()
+		{
+			LostRobots = new HashSet<LostRobot>();
+		}
+
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int surfaceId { get; set; }
@@ -15,7 +20,7 @@ namespace DB
 
 		public int ySize { get; set; }
 
-		public ICollection<LostRobot> LostRobots { get; set; } = new List<LostRobot>();
+		public virtual ICollection<LostRobot> LostRobots { get; set; }
     }
 }
 
