@@ -1,10 +1,10 @@
-﻿namespace MartianRobotsApp.Services
+﻿using MartianRobotsApp.Models;
+
+namespace MartianRobotsApp.Services
 {
     public interface IFileCheckerService
     {
-        (bool exit, string message) CheckFileName(string path);
-
-        (bool exit, string message) CheckFileFormat(string path);
+        FunctionResult CheckFileName(string path);
 
         string GetValidPath(string givenPath);
     }

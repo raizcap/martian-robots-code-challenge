@@ -1,9 +1,11 @@
 ﻿using System;
+using MartianRobotsApp.Models;
+
 namespace MartianRobotsApp.Services
 {
 	public interface IArgumentsCheckerService
 	{
-		(bool, string) CheckCommandArguments(string[] args);
+		FunctionResult CheckCommandArguments(string[] args);
 	}
 }
 

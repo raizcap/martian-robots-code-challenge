@@ -6,35 +6,21 @@ namespace MartianRobotsApp.Services
 {
     public class FileCheckerService : IFileCheckerService
     {
-        public (bool exit, string message) CheckFileName(string path)
+        public FunctionResult CheckFileName(string path)
         {
             if (Path.Exists(path) && Directory.Exists(path))
             {
-                return (true, ErrorMessages.INVALID_HOME_PATH);
+                return new ErrorFunctionResult(ErrorMessages.INVALID_HOME_PATH);
             }
 
             var fileExists = File.Exists(path);
 
             if (!fileExists)
             {
-                return (true, ErrorMessages.FILE_DOESNT_EXIST);
+                return new ErrorFunctionResult(ErrorMessages.FILE_DOESNT_EXIST);
             }
 
-            return (false, ErrorMessages.NO_ERROR);
-        }
-
-        public (bool exit, string message) CheckFileFormat(string path)
-        {
-            var fileStream = new StreamReader(path);
-
-            var surfaceSize = fileStream.ReadLine();
-
-            if (surfaceSize == null || !SurfaceSizeIsCorrect(surfaceSize))
-            {
-                return (true, ErrorMessages.INVALID_SURFACE_SIZE);
-            }
-
-            return (false, ErrorMessages.NO_ERROR);
+            return new OkFunctionResult();
         }
 
         public string GetValidPath(string givenPath)
@@ -44,14 +30,6 @@ namespace MartianRobotsApp.Services
                 .Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
                 .Replace("//", "/")
                 .Replace("\\\\", "\\");
-        }
-
-        private bool SurfaceSizeIsCorrect(string surfaceSize)
-        {
-            var pattern = @"\d{1,2}\s\d{1,2}$";
-            var regexp = new Regex(pattern);
-
-            return regexp.IsMatch(surfaceSize);
         }
     }
 }

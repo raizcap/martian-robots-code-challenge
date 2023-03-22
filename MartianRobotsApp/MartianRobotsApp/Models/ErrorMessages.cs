@@ -15,11 +15,14 @@ namespace MartianRobotsApp.Models
 		public const string INVALID_ARGUMENT = "Invalid argument '{0}'";
 
         // File content format related messages
-        public const string INVALID_SURFACE_SIZE = "The surface has an invalid size";
+        public const string INVALID_SURFACE_SIZE_LINE = "The file has an invalid surface size line";
+        public const string INVALID_SURFACE_SIZE = "The surface has an invalid size '{0}'";
 		public const string INVALID_COORDINATES = "The robot {0} has invalid starting coordinates (x={1} y={2})";
 		public const string INVALID_ORIENTATION = "The robot {0} has an invalid starting orientation ({1})";
 		public const string INVALID_INSTRUCTIONS = "The robot {0} has an invalid instructions string ({1})";
         public const string TOO_MUCH_LONG_INSTRUCTIONS = "The robot {0} has too much long instructions string -max. 99 characters- ({1})";
-	}
+		public const string ERROR_LOADING_CONTENT = "Error loading the file content: [{0}] {1}";
+
+    }
 }
 

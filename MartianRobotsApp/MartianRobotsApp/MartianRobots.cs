@@ -1,52 +1,71 @@
 ﻿using System;
+using MartianRobotsApp.Models;
 using MartianRobotsApp.Services;
 
 namespace MartianRobotsApp
 {
     public class MartianRobots
     {
+        private string filePath = "";
         private readonly IFileCheckerService mFileCheckerService;
         private readonly IArgumentsCheckerService mArgumentsCheckerService;
+        private readonly IMarsSurfaceService mMarsSurfaceService;
+        private readonly IFileContentManagerService mFileContentManagerService;
 
         public MartianRobots(
             IFileCheckerService fileCheckerService,
-            IArgumentsCheckerService argumentsCheckerService)
+            IArgumentsCheckerService argumentsCheckerService,
+            IMarsSurfaceService marsSurfaceService,
+            IFileContentManagerService fileContentManagerService)
         {
             if (fileCheckerService == null) throw new ArgumentException(nameof(fileCheckerService));
             if (argumentsCheckerService == null) throw new ArgumentException(nameof(argumentsCheckerService));
+            if (marsSurfaceService == null) throw new ArgumentException(nameof(marsSurfaceService));
+            if (fileContentManagerService == null) throw new ArgumentException(nameof(fileContentManagerService));
 
             mFileCheckerService = fileCheckerService;
             mArgumentsCheckerService = argumentsCheckerService;
+            mMarsSurfaceService = marsSurfaceService;
+            mFileContentManagerService = fileContentManagerService;
         }
 
         public void Run(string[] args)
         {
-            InitialChecks(args);
-        }
+            // Firstly check if the given path is valid
+            filePath = mFileCheckerService.GetValidPath(args[0]);
 
-        private void InitialChecks(string[] args)
-        {
-            var path = "";
-            (bool exit, string message) = mArgumentsCheckerService.CheckCommandArguments(args);
+            // Later check that the command has only one argument and the file exists
+            var result = InitialChecks(args);
 
-            if (!exit)
+            // Afterwards read the content of the file: Mars surface and robots instructions
+            if (!result.Exit)
             {
-                path = mFileCheckerService.GetValidPath(args[0]);
-                (exit, message) = mFileCheckerService.CheckFileName(path);
+                result = mFileContentManagerService.LoadFileContent(filePath);
             }
 
-            if (!exit)
-            {
-                (exit, message) = mFileCheckerService.CheckFileFormat(path);
-            }
+            // Start process
 
-            if (exit)
+            // Communicate results
+
+            if (result.Exit)
             {
-                Console.WriteLine(message);
+                Console.WriteLine(result.Message);
                 Environment.Exit(1);
             }
 
-            Console.WriteLine("All OK");
+            Console.WriteLine("It's all right");
+        }
+
+        private FunctionResult InitialChecks(string[] args)
+        {
+            var result = mArgumentsCheckerService.CheckCommandArguments(args);
+
+            if (!result.Exit)
+            {
+                result = mFileCheckerService.CheckFileName(filePath);
+            }
+
+            return result;
         }
     }
 }
