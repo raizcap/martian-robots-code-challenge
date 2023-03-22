@@ -4,6 +4,6 @@ namespace MartianRobotsApp.Services
 {
     public interface IRobotsService
     {
-        FunctionResult LoadRobots(string fileContent);
+        IFunctionResult LoadRobots(ICollection<string> fileContent);
     }
 }

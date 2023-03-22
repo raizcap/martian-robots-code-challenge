@@ -4,6 +4,6 @@ namespace MartianRobotsApp.Services
 {
     public interface IFileContentManagerService
     {
-        FunctionResult LoadFileContent(string filePath);
+        IFunctionResult LoadFileContent(string filePath);
     }
 }

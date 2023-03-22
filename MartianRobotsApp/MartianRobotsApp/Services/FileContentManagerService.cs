@@ -4,12 +4,8 @@ using MartianRobotsApp.Models;
 
 namespace MartianRobotsApp.Services
 {
-	public class FileContentManagerService : IFileContentManagerService
+	public partial class FileContentManagerService : IFileContentManagerService
 	{
-        // Surface pattern: 1 or 2 digits, a blank space and 1 or 2 digits
-        // in the same line, followed by a line change
-        private const string SURFACE_REGEX_PATTERN = @"\d{1,2}\s\d{1,2}$";
-
         private readonly IMarsSurfaceService mMarsSurfaceService;
         private readonly IRobotsService mRobotsService;
 
@@ -24,7 +20,7 @@ namespace MartianRobotsApp.Services
             mRobotsService = robotsService;
 		}
 
-        public FunctionResult LoadFileContent(string filePath)
+        public IFunctionResult LoadFileContent(string filePath)
 		{
             var fileContentLines = new List<string>();
             try
@@ -42,13 +38,16 @@ namespace MartianRobotsApp.Services
 
             if (!result.Exit)
             {
-                result = LoadRobots(File.ReadAllText(filePath));
+                var lines = File.ReadAllLines(filePath);
+                lines = lines.Where(line => line.Length > 0).ToArray();
+                var desiredLines = new Range(1, lines.Length);
+                result = LoadRobots(lines.Take(desiredLines).ToList());
             }
 
             return result;
         }
 
-        private FunctionResult LoadMarsSurface(string surface)
+        private IFunctionResult LoadMarsSurface(string surface)
         {
             if (surface == null || !SurfaceSizeIsCorrect(surface))
             {
@@ -64,21 +63,26 @@ namespace MartianRobotsApp.Services
             );
         }
 
-        private FunctionResult LoadRobots(string fileContent)
+        private IFunctionResult LoadRobots(ICollection<string> robotsLines)
         {
             // File content isn't null or empty because it contains
             // the surface (checked in the previous step)
-            return mRobotsService.LoadRobots(fileContent);
+            return mRobotsService.LoadRobots(robotsLines);
         }
 
         private bool SurfaceSizeIsCorrect(string surface)
         {
-            var regexp = new Regex(SURFACE_REGEX_PATTERN);
+            var regexp = SurfaceSizeRegex();
 
             return surface != null
                 && surface.Length > 0
                 && regexp.IsMatch(surface);
         }
+
+        // Surface pattern: 1 or 2 digits, a blank space and 1 or 2 digits
+        // in the same line, followed by a line change
+        [GeneratedRegex("\\d{1,2}\\s\\d{1,2}$")]
+        private static partial Regex SurfaceSizeRegex();
     }
 }
 

@@ -5,7 +5,7 @@ namespace MartianRobotsApp.Services
 {
     public class ArgumentsCheckerService : IArgumentsCheckerService
     {
-        public FunctionResult CheckCommandArguments(string[] args)
+        public IFunctionResult CheckCommandArguments(string[] args)
         {
             if (args.Length == 0)
             {

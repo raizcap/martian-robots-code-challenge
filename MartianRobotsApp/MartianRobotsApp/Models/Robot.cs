@@ -5,11 +5,11 @@ namespace MartianRobotsApp.Models
 	{
 		public int xCoordinate;
 		public int yCoordinate;
-		public string orientation;
+		public Orientation orientation;
 		public RobotStatus status;
 		public readonly string instructions;
 
-		public Robot(int x, int y, string orientation, string instructions)
+		public Robot(int x, int y, Orientation orientation, string instructions)
 		{
 			xCoordinate = x;
 			yCoordinate = y;

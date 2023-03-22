@@ -56,7 +56,7 @@ namespace MartianRobotsApp
             Console.WriteLine("It's all right");
         }
 
-        private FunctionResult InitialChecks(string[] args)
+        private IFunctionResult InitialChecks(string[] args)
         {
             var result = mArgumentsCheckerService.CheckCommandArguments(args);
 

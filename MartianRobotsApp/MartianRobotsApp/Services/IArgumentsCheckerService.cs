@@ -5,7 +5,7 @@ namespace MartianRobotsApp.Services
 {
 	public interface IArgumentsCheckerService
 	{
-		FunctionResult CheckCommandArguments(string[] args);
+		IFunctionResult CheckCommandArguments(string[] args);
 	}
 }
 

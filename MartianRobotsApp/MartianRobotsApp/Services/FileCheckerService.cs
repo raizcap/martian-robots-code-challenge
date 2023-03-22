@@ -6,7 +6,7 @@ namespace MartianRobotsApp.Services
 {
     public class FileCheckerService : IFileCheckerService
     {
-        public FunctionResult CheckFileName(string path)
+        public IFunctionResult CheckFileName(string path)
         {
             if (Path.Exists(path) && Directory.Exists(path))
             {

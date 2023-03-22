@@ -4,7 +4,7 @@ namespace MartianRobotsApp.Services
 {
     public interface IFileCheckerService
     {
-        FunctionResult CheckFileName(string path);
+        IFunctionResult CheckFileName(string path);
 
         string GetValidPath(string givenPath);
     }

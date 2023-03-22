@@ -9,6 +9,7 @@ namespace MartianRobotsApp.Services
         private const int MAX_X = 50;
         private const int MAX_Y = 50;
         private readonly ISurfacesConnector mSurfacesConnector;
+        private readonly ICollection<Robot> mRobotsList = new List<Robot>();
         private Surface? surface;
 
 		public MarsSurfaceService(ISurfacesConnector surfacesConnector)
@@ -18,7 +19,7 @@ namespace MartianRobotsApp.Services
             this.mSurfacesConnector = surfacesConnector;
         }
 
-        public FunctionResult CreateMarsSurface(int xSize, int ySize)
+        public IFunctionResult CreateMarsSurface(int xSize, int ySize)
         {
             var result = CheckMaxAndMinSizes(xSize, ySize);
 
@@ -32,7 +33,12 @@ namespace MartianRobotsApp.Services
             return new OkFunctionResult();
         }
 
-        private FunctionResult CheckMaxAndMinSizes(int xSize, int ySize)
+        public void AddRobot(Robot newRobot)
+        {
+            mRobotsList.Add(newRobot);
+        }
+
+        private IFunctionResult CheckMaxAndMinSizes(int xSize, int ySize)
         {
             if (xSize < 0 || xSize > 50)
             {
