@@ -13,6 +13,8 @@ namespace MartianRobotsApp.Models
 
         public string orientation { get; set; } = "";
 
+        public string failedInstruction { get; set; } = "";
+
         public int surfaceId { get; set; }
 
         public LostRobot()

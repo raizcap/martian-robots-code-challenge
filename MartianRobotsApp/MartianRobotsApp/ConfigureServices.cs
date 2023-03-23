@@ -12,6 +12,7 @@ namespace MartianRobotsApp
 		{
             services.AddSingleton<IFileCheckerService, FileCheckerService>();
             services.AddSingleton<IArgumentsCheckerService, ArgumentsCheckerService>();
+            services.AddSingleton<IRobotInstructionsManagerService, RobotInstructionsManagerService>();
             services.AddSingleton<IMarsSurfaceService, MarsSurfaceService>();
             services.AddSingleton<IFileContentManagerService, FileContentManagerService>();
             services.AddSingleton<IRobotsService, RobotsService>();

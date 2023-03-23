@@ -9,6 +9,9 @@ namespace MartianRobotsApp.Services
 
 		void AddRobot(Robot newRobot);
 
+		void ProcessRobotsInstructions();
+
+		string GetResults();
     }
 }
 

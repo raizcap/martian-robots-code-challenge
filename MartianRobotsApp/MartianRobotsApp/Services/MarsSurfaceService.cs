@@ -1,22 +1,28 @@
 ﻿using System;
+using System.Text;
 using MartianRobotsApp.Communication;
 using MartianRobotsApp.Models;
 
 namespace MartianRobotsApp.Services
 {
-	public class MarsSurfaceService : IMarsSurfaceService
-	{
+    public class MarsSurfaceService : IMarsSurfaceService
+    {
         private const int MAX_X = 50;
         private const int MAX_Y = 50;
         private readonly ISurfacesConnector mSurfacesConnector;
+        private readonly IRobotInstructionsManagerService mRobotInstructionsManagerService;
         private readonly ICollection<Robot> mRobotsList = new List<Robot>();
-        private Surface? surface;
+        private Surface? mSurface;
 
-		public MarsSurfaceService(ISurfacesConnector surfacesConnector)
-		{
+        public MarsSurfaceService(
+            ISurfacesConnector surfacesConnector,
+            IRobotInstructionsManagerService robotInstructionsManagerService)
+        {
             if (surfacesConnector is null) throw new ArgumentNullException(nameof(surfacesConnector));
+            if (robotInstructionsManagerService is null) throw new ArgumentNullException(nameof(robotInstructionsManagerService));
 
-            this.mSurfacesConnector = surfacesConnector;
+            mSurfacesConnector = surfacesConnector;
+            mRobotInstructionsManagerService = robotInstructionsManagerService;
         }
 
         public IFunctionResult CreateMarsSurface(int xSize, int ySize)
@@ -38,6 +44,37 @@ namespace MartianRobotsApp.Services
             mRobotsList.Add(newRobot);
         }
 
+        public void ProcessRobotsInstructions()
+        {
+            for (int i = 0; i < mRobotsList.Count; i++)
+            {
+                Console.WriteLine($"Processing robot {i + 1}...");
+
+                var robot = mRobotsList.ElementAt(i);
+                mRobotInstructionsManagerService.ProcessRobotInstructions(robot, mSurface);
+
+                Console.WriteLine($"Done, robot {robot.status.ToString()}");
+            }
+        }
+
+        public string GetResults()
+        {
+            var result = new StringWriter(new StringBuilder());
+
+            foreach (var robot in mRobotsList)
+            {
+                var lostText = robot.status == RobotStatus.LOST ? RobotStatus.LOST.ToString() : string.Empty;
+
+                result.WriteLine($"{robot.xCoordinate} " +
+                                 $"{robot.yCoordinate} " +
+                                 $"{robot.orientation.ToString()} " +
+                                 $"{lostText}");
+                result.Flush();
+            }
+
+            return result.ToString();
+        }
+
         private IFunctionResult CheckMaxAndMinSizes(int xSize, int ySize)
         {
             if (xSize < 0 || xSize > 50)
@@ -55,11 +92,11 @@ namespace MartianRobotsApp.Services
 
         private void LoadSurfaceData(int xSize, int ySize)
         {
-            surface = mSurfacesConnector.GetSurfaceBySize(xSize, ySize).Result;
+            mSurface = mSurfacesConnector.GetSurfaceBySize(xSize, ySize).Result;
 
-            if (surface == null)
+            if (mSurface == null)
             {
-                surface = CreateNewSurface(xSize, ySize);
+                mSurface = CreateNewSurface(xSize, ySize);
             }
         }
 

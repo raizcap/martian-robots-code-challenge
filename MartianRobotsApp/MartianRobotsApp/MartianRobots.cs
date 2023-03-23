@@ -44,8 +44,18 @@ namespace MartianRobotsApp
             }
 
             // Start process
+            if (!result.Exit)
+            {
+                mMarsSurfaceService.ProcessRobotsInstructions();
+            }
 
             // Communicate results
+            if (!result.Exit)
+            {
+                Console.WriteLine("===== RESULTS =====");
+                Console.WriteLine(mMarsSurfaceService.GetResults());
+                Console.WriteLine("===================");
+            }
 
             if (result.Exit)
             {
