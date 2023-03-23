@@ -25,6 +25,8 @@ namespace DB
         [MaxLength(1)]
         public string orientation { get; set; } = "";
 
+        public string failedInstruction { get; set; } = "";
+
         public int surfaceId { get; set; }
 
         [JsonIgnore]
