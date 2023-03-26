@@ -83,6 +83,14 @@ namespace MartianRobotsApp.Services
                     ));
             }
 
+            (int xSize, int ySize) = mMarsSurfaceService.GetSurfaceSize();
+            if (x > xSize || y > ySize)
+            {
+                return new ErrorFunctionResult(string.Format(
+                    ErrorMessages.ROBOT_COORDINATES_OUT_OF_BOUNDS, robotNumber, x, y
+                    ));
+            }
+
             if (!mOrientationsList.Contains(orientation.ToUpper()))
             {
                 return new ErrorFunctionResult(string.Format(

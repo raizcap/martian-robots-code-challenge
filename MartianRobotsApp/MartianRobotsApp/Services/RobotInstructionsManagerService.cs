@@ -1,20 +1,23 @@
 ﻿using System;
+using MartianRobotsApp.Communication;
 using MartianRobotsApp.Models;
 
 namespace MartianRobotsApp.Services
 {
     public class RobotInstructionsManagerService : IRobotInstructionsManagerService
     {
-        //private readonly IRobotsConnector mRobotsConnector;
+        private readonly IRobotsConnector mRobotsConnector;
 
-        public RobotInstructionsManagerService(/*IRobotsConnector robotsConnector*/)
+        public RobotInstructionsManagerService(IRobotsConnector robotsConnector)
         {
-            //if (robotsConnector == null) throw new ArgumentException(nameof(robotsConnector));
-            //mRobotsConnector = robotsConnector;
+            if (robotsConnector == null) throw new ArgumentException(nameof(robotsConnector));
+            mRobotsConnector = robotsConnector;
         }
 
         public void ProcessRobotInstructions(Robot robot, Surface surface)
         {
+            var newLostRobots = new List<LostRobot>();
+
             foreach (var instructionChar in robot.instructions)
             {
                 var previousX = robot.xCoordinate;
@@ -34,7 +37,9 @@ namespace MartianRobotsApp.Services
                     robot.yCoordinate = previousY;
                     robot.status = RobotStatus.LOST;
 
-                    //AddLostRobotToSurface(robot, surface);
+                    var lostRobot = LostRobot.CreateLostRobot(robot, instructionChar, surface.surfaceId);
+
+                    AddLostRobotToSurface(lostRobot, surface);
 
                     break;
                 }
@@ -57,6 +62,15 @@ namespace MartianRobotsApp.Services
                     || robot.xCoordinate > surface.xSize
                     || robot.yCoordinate < 0
                     || robot.yCoordinate > surface.ySize;
+        }
+
+        private void AddLostRobotToSurface(LostRobot lostRobot, Surface surface)
+        {
+            //Add lost robot to the current surface
+            surface.lostRobots.Add(lostRobot);
+
+            //Add lost robot to the DB
+            mRobotsConnector.AddLostRobotToSurface(lostRobot).Wait();
         }
     }
 }

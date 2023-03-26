@@ -30,4 +30,9 @@ There are two ways to prepare the environment: execute the OS dependant setup sc
 
             docker run --name CodeChallengeAPI --network codechallenge-network -p 5005:5005 -e 'ASPNETCORE_URLS=http://*:5005' -d code-challenge:v1
 
-If there is no error, you should see two Docker containers running: CodeChallengeDB and CodeChallengeAPI.
+If there is no error, you should see two Docker containers running: CodeChallengeDB and CodeChallengeAPI. Both have to be running before executing the app. In case you want to run them manually:
+  1. First run CodeChallengeDB container.
+   
+  2. Once it's running, run CodeChallengeAPI container.
+   
+  3. If the API stops due to an error, try againg some seconds later. It could be that the DB was still not ready.

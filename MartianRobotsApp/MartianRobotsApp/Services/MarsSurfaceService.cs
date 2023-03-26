@@ -57,6 +57,11 @@ namespace MartianRobotsApp.Services
             }
         }
 
+        public (int, int) GetSurfaceSize()
+        {
+            return (mSurface.xSize, mSurface.ySize);
+        }
+
         public string GetResults()
         {
             var result = new StringWriter(new StringBuilder());

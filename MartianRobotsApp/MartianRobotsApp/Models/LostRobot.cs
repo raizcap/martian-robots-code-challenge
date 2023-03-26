@@ -20,6 +20,19 @@ namespace MartianRobotsApp.Models
         public LostRobot()
 		{
 		}
+
+        public static LostRobot CreateLostRobot(Robot robot, char failedInstruction, int surfaceId)
+        {
+            return new LostRobot()
+            {
+                id = 0,
+                xCoordinate = robot.xCoordinate,
+                yCoordinate = robot.yCoordinate,
+                orientation = Enum.GetName(typeof(Orientation), robot.orientation),
+                failedInstruction = char.ToString(failedInstruction),
+                surfaceId = surfaceId
+            };
+        }
 	}
 }
 

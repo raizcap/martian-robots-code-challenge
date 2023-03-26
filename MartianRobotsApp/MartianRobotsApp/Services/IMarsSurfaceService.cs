@@ -11,7 +11,10 @@ namespace MartianRobotsApp.Services
 
 		void ProcessRobotsInstructions();
 
+		(int, int) GetSurfaceSize();
+
 		string GetResults();
+
     }
 }
 

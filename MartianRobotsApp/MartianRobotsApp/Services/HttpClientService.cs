@@ -1,7 +1,4 @@
-﻿using System;
-using MartianRobotsApp.Models;
-using System.Net.Http;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace MartianRobotsApp.Services
 {

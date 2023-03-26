@@ -19,6 +19,7 @@ namespace MartianRobotsApp.Models
         public const string INVALID_SURFACE_SIZE = "The surface has an invalid size '{0}'";
 		public const string INVALID_ROBOT_COORDINATES_FORMAT = "The robot {0} has invalid starting coordinates format ({1})";
 		public const string INVALID_ROBOT_COORDINATES = "The robot {0} has invalid starting coordinates (x={1} y={2})";
+		public const string ROBOT_COORDINATES_OUT_OF_BOUNDS = "Robot {0} coordinates are out of bounds (x={1} y={2})";
 		public const string INVALID_ROBOT_ORIENTATION = "The robot {0} has an invalid starting orientation ({1})";
 		public const string INVALID_ROBOT_INSTRUCTIONS = "The robot {0} has an invalid instructions string ({1})";
         public const string TOO_MUCH_LONG_INSTRUCTIONS = "The robot {0} has too much long instructions string -max. 99 characters- ({1})";
