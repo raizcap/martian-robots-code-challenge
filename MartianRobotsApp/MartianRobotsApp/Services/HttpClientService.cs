@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http;
+using System.Text.Json;
 
 namespace MartianRobotsApp.Services
 {
@@ -26,6 +27,12 @@ namespace MartianRobotsApp.Services
             {
                 throw new Exception($"Error geting an object of type {typeof(T)}. URL: {url}. Error: {e.Message}");
             }
+        }
+
+        public new Task<HttpResponseMessage> PostAsync(string requestUri,
+                                               HttpContent content)
+        {
+            return base.PostAsync(requestUri, content);
         }
 
         public async Task<T?> PostAsync<T>(string url)

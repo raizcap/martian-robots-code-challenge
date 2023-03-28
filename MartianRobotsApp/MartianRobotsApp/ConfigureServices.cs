@@ -18,6 +18,8 @@ namespace MartianRobotsApp
             services.AddSingleton<IFileContentManagerService, FileContentManagerService>();
             services.AddSingleton<IRobotsService, RobotsService>();
             services.AddSingleton<ISurfacesConnector, SurfacesConnector>();
+
+            services.AddTransient<IHttpClientService, HttpClientService>();
         }
     }
 }
