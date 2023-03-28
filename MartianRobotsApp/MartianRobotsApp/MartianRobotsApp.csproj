@@ -17,10 +17,12 @@
     <None Remove="Services\" />
     <None Remove="Models\" />
     <None Remove="Communication\" />
+    <None Remove="Services\Instructions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Communication\" />
+    <Folder Include="Services\Instructions\" />
   </ItemGroup>
 </Project>

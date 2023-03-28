@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using MartianRobotsApp.Models;
+using MartianRobotsApp.Services.Instructions;
 
 namespace MartianRobotsApp.Services
 {
@@ -9,12 +10,17 @@ namespace MartianRobotsApp.Services
         private readonly IEnumerable<string> mOrientationsList = Enum.GetNames<Orientation>();
 
         private readonly IMarsSurfaceService mMarsSurfaceService;
+        private readonly IInstructionsService mInstructionsService;
 
-        public RobotsService(IMarsSurfaceService marsSurfaceService)
+        public RobotsService(
+            IMarsSurfaceService marsSurfaceService,
+            IInstructionsService instructionsService)
         {
             if (marsSurfaceService == null) throw new ArgumentNullException(nameof(marsSurfaceService));
+            if (instructionsService == null) throw new ArgumentNullException(nameof(instructionsService));
 
             mMarsSurfaceService = marsSurfaceService;
+            mInstructionsService = instructionsService;
         }
 
         public IFunctionResult LoadRobots(ICollection<string> fileContent)
@@ -115,8 +121,8 @@ namespace MartianRobotsApp.Services
 
             foreach (char letter in instructionsLine)
             {
-                if (!Enum.GetNames<Instruction>().Contains(char.ToString(letter))
-                    || !InstructionActions.Dictionary.ContainsKey(Enum.Parse<Instruction>(char.ToString(letter))))
+                if (!Enum.GetNames<EInstruction>().Contains(char.ToString(letter))
+                    || !mInstructionsService.InstructionExists(letter))
                 {
                     result = new ErrorFunctionResult(string.Format(
                         ErrorMessages.INVALID_ROBOT_INSTRUCTIONS, robotNumber, instructionsLine
