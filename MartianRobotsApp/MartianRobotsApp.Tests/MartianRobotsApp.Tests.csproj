@@ -22,9 +22,19 @@
   <ItemGroup>
     <None Remove="Communication\" />
     <None Remove="Communication\RobotsConnectorTests\" />
+    <None Remove="Services\" />
+    <None Remove="Services\Instructions\" />
+    <None Remove="Services\Instructions\ForwardInstructionTests\" />
+    <None Remove="Services\Instructions\LeftInstructionTests\" />
+    <None Remove="Services\Instructions\RightInstructionTests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\" />
     <Folder Include="Communication\RobotsConnectorTests\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Instructions\" />
+    <Folder Include="Services\Instructions\ForwardInstructionTests\" />
+    <Folder Include="Services\Instructions\LeftInstructionTests\" />
+    <Folder Include="Services\Instructions\RightInstructionTests\" />
   </ItemGroup>
 </Project>
