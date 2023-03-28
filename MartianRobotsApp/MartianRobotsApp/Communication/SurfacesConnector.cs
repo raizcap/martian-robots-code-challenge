@@ -10,11 +10,12 @@ namespace MartianRobotsApp.Communication
         private const string BASE_URL = "http://localhost:5005/Surfaces/";
         private const string GET_BY_SIZE = "GetSurfaceBySize?XSize={0}&YSize={1}";
         private const string ADD = "AddSurface?XSize={0}&YSize={1}";
-        private readonly HttpClientService mHttpClient;
+        private readonly IHttpClientService mHttpClient;
 
-        public SurfacesConnector()
+        public SurfacesConnector(IHttpClientService httpClientService)
         {
-            mHttpClient = new HttpClientService();
+            if (httpClientService == null) throw new ArgumentException(nameof(httpClientService));
+            mHttpClient = httpClientService;
         }
 
         public async Task<Surface?> GetSurfaceBySize(int XSize, int YSize)

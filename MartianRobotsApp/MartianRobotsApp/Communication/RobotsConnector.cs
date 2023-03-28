@@ -12,12 +12,13 @@ namespace MartianRobotsApp.Communication
 	{
         private const string BASE_URL = "http://localhost:5005/LostRobots/";
         private const string ADD = "AddLostRobot";
-        private readonly HttpClient mHttpClient;
+        private readonly IHttpClientService mHttpClient;
 
-		public RobotsConnector()
+		public RobotsConnector(IHttpClientService httpClientService)
 		{
-            mHttpClient = new HttpClient();
-		}
+            if (httpClientService == null) throw new ArgumentException(nameof(httpClientService));
+            mHttpClient = httpClientService;
+        }
 
         public async Task AddLostRobotToSurface(LostRobot lostRobot)
         {
