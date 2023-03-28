@@ -1,17 +1,25 @@
 ﻿using System;
 using MartianRobotsApp.Communication;
 using MartianRobotsApp.Models;
+using MartianRobotsApp.Services.Instructions;
 
 namespace MartianRobotsApp.Services
 {
     public class RobotInstructionsManagerService : IRobotInstructionsManagerService
     {
         private readonly IRobotsConnector mRobotsConnector;
+        private readonly IInstructionsService mInstructionsService;
 
-        public RobotInstructionsManagerService(IRobotsConnector robotsConnector)
+        public RobotInstructionsManagerService(
+            IRobotsConnector robotsConnector,
+            IInstructionsService instructionsService
+            )
         {
             if (robotsConnector == null) throw new ArgumentException(nameof(robotsConnector));
+            if (instructionsService == null) throw new ArgumentException(nameof(instructionsService));
+
             mRobotsConnector = robotsConnector;
+            mInstructionsService = instructionsService;
         }
 
         public void ProcessRobotInstructions(Robot robot, Surface surface)
@@ -22,14 +30,14 @@ namespace MartianRobotsApp.Services
             {
                 var previousX = robot.xCoordinate;
                 var previousY = robot.yCoordinate;
-                var instruction = Enum.Parse<Instruction>(char.ToString(instructionChar));
+                var instruction = Enum.Parse<EInstruction>(char.ToString(instructionChar));
 
                 if (RobotWasLostPreviously(robot, surface, instructionChar))
                 {
                     continue;
                 }
 
-                InstructionActions.Dictionary[instruction].Invoke(robot);
+                mInstructionsService.GetActionForInstruction(instruction).Invoke(robot);
 
                 if (RobotHasBeenLost(robot, surface))
                 {

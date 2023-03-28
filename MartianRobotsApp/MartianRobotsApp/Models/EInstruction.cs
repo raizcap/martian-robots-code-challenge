@@ -1,7 +1,7 @@
 ﻿using System;
 namespace MartianRobotsApp.Models
 {
-	public enum Instruction
+	public enum EInstruction
 	{
 		L,
 		R,
