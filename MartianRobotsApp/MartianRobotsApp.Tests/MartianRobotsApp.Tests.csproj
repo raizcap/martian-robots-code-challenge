@@ -27,6 +27,9 @@
     <None Remove="Services\Instructions\ForwardInstructionTests\" />
     <None Remove="Services\Instructions\LeftInstructionTests\" />
     <None Remove="Services\Instructions\RightInstructionTests\" />
+    <None Remove="Services\ArgumentsCheckerServiceTests\" />
+    <None Remove="Services\FileCheckerServiceTests\" />
+    <None Remove="Services\FileContentManagerServiceTests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\" />
@@ -36,5 +39,8 @@
     <Folder Include="Services\Instructions\ForwardInstructionTests\" />
     <Folder Include="Services\Instructions\LeftInstructionTests\" />
     <Folder Include="Services\Instructions\RightInstructionTests\" />
+    <Folder Include="Services\ArgumentsCheckerServiceTests\" />
+    <Folder Include="Services\FileCheckerServiceTests\" />
+    <Folder Include="Services\FileContentManagerServiceTests\" />
   </ItemGroup>
 </Project>

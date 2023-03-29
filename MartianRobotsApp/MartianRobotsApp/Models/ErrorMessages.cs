@@ -8,8 +8,8 @@ namespace MartianRobotsApp.Models
 
 		// File related messages
 		public const string NO_FILE_PROVIDED = "Please, provide a valid file";
-		public const string FILE_DOESNT_EXIST = "The provided file doesn't exist";
-		public const string INVALID_HOME_PATH = "Please, provide a relative or absolute path, but not a path starting with home directory (~)";
+		public const string FILE_DOESNT_EXIST = "The provided file doesn't exist or you don't have sufficient permissions.";
+		public const string INVALID_PATH = "Invalid file path. Please, provide a relative or absolute path valid for your OS.";
 
 		// Arguments related messages
 		public const string INVALID_ARGUMENT = "Invalid argument '{0}'";

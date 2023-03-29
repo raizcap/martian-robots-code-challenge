@@ -16,7 +16,7 @@ namespace MartianRobotsApp.Communication
 
 		public RobotsConnector(IHttpClientService httpClientService)
 		{
-            if (httpClientService == null) throw new ArgumentException(nameof(httpClientService));
+            if (httpClientService == null) throw new ArgumentNullException(nameof(httpClientService));
             mHttpClient = httpClientService;
         }
 

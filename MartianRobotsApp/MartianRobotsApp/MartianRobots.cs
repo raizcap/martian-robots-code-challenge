@@ -6,7 +6,7 @@ namespace MartianRobotsApp
 {
     public class MartianRobots
     {
-        private string filePath = "";
+        private string mFilePath = "";
         private readonly IFileCheckerService mFileCheckerService;
         private readonly IArgumentsCheckerService mArgumentsCheckerService;
         private readonly IMarsSurfaceService mMarsSurfaceService;
@@ -18,10 +18,10 @@ namespace MartianRobotsApp
             IMarsSurfaceService marsSurfaceService,
             IFileContentManagerService fileContentManagerService)
         {
-            if (fileCheckerService == null) throw new ArgumentException(nameof(fileCheckerService));
-            if (argumentsCheckerService == null) throw new ArgumentException(nameof(argumentsCheckerService));
-            if (marsSurfaceService == null) throw new ArgumentException(nameof(marsSurfaceService));
-            if (fileContentManagerService == null) throw new ArgumentException(nameof(fileContentManagerService));
+            if (fileCheckerService == null) throw new ArgumentNullException(nameof(fileCheckerService));
+            if (argumentsCheckerService == null) throw new ArgumentNullException(nameof(argumentsCheckerService));
+            if (marsSurfaceService == null) throw new ArgumentNullException(nameof(marsSurfaceService));
+            if (fileContentManagerService == null) throw new ArgumentNullException(nameof(fileContentManagerService));
 
             mFileCheckerService = fileCheckerService;
             mArgumentsCheckerService = argumentsCheckerService;
@@ -32,7 +32,7 @@ namespace MartianRobotsApp
         public void Run(string[] args)
         {
             // Firstly check if the given path is valid
-            filePath = mFileCheckerService.GetValidPath(args[0]);
+            mFilePath = mFileCheckerService.GetValidPath(args[0]);
 
             // Later check that the command has only one argument and the file exists
             var result = InitialChecks(args);
@@ -40,7 +40,7 @@ namespace MartianRobotsApp
             // Afterwards read the content of the file: Mars surface and robots instructions
             if (!result.Exit)
             {
-                result = mFileContentManagerService.LoadFileContent(filePath);
+                result = mFileContentManagerService.LoadFileContent(mFilePath);
             }
 
             // Start process
@@ -72,7 +72,7 @@ namespace MartianRobotsApp
 
             if (!result.Exit)
             {
-                result = mFileCheckerService.CheckFileName(filePath);
+                result = mFileCheckerService.CheckFileName(mFilePath);
             }
 
             return result;

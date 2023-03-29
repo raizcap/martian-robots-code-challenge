@@ -15,8 +15,8 @@ namespace MartianRobotsApp.Services
             IInstructionsService instructionsService
             )
         {
-            if (robotsConnector == null) throw new ArgumentException(nameof(robotsConnector));
-            if (instructionsService == null) throw new ArgumentException(nameof(instructionsService));
+            if (robotsConnector == null) throw new ArgumentNullException(nameof(robotsConnector));
+            if (instructionsService == null) throw new ArgumentNullException(nameof(instructionsService));
 
             mRobotsConnector = robotsConnector;
             mInstructionsService = instructionsService;

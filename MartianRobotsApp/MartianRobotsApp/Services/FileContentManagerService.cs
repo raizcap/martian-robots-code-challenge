@@ -8,24 +8,28 @@ namespace MartianRobotsApp.Services
 	{
         private readonly IMarsSurfaceService mMarsSurfaceService;
         private readonly IRobotsService mRobotsService;
+        private readonly IFileReaderService mFileReaderService;
 
-		public FileContentManagerService(
+        public FileContentManagerService(
             IMarsSurfaceService marsSurfaceService,
-            IRobotsService robotsService)
+            IRobotsService robotsService,
+            IFileReaderService fileReaderService)
 		{
-            if (marsSurfaceService == null) throw new ArgumentException(nameof(marsSurfaceService));
-            if (robotsService == null) throw new ArgumentException(nameof(robotsService));
+            if (marsSurfaceService == null) throw new ArgumentNullException(nameof(marsSurfaceService));
+            if (robotsService == null) throw new ArgumentNullException(nameof(robotsService));
+            if (fileReaderService == null) throw new ArgumentNullException(nameof(fileReaderService));
 
             mMarsSurfaceService = marsSurfaceService;
             mRobotsService = robotsService;
-		}
+            mFileReaderService = fileReaderService;
+        }
 
         public IFunctionResult LoadFileContent(string filePath)
 		{
-            var fileContentLines = new List<string>();
+            var fileContentLines = Enumerable.Empty<string>();
             try
             {
-                fileContentLines = File.ReadAllLines(filePath).ToList();
+                fileContentLines = mFileReaderService.ReadAllLines(filePath).ToList();
             }
             catch (Exception ex)
             {
@@ -34,14 +38,13 @@ namespace MartianRobotsApp.Services
                         ex.GetType(), ex.Message));
             }
 
-            var result = LoadMarsSurface(fileContentLines[0]);
+            var result = LoadMarsSurface(fileContentLines.ToList()[0]);
 
             if (!result.Exit)
             {
-                var lines = File.ReadAllLines(filePath);
-                lines = lines.Where(line => line.Length > 0).ToArray();
-                var desiredLines = new Range(1, lines.Length);
-                result = LoadRobots(lines.Take(desiredLines).ToList());
+                fileContentLines = fileContentLines.Where(line => line.Length > 0).ToList();
+                var desiredLines = new Range(1, fileContentLines.ToList().Count);
+                result = LoadRobots(fileContentLines.Take(desiredLines).ToList());
             }
 
             return result;
