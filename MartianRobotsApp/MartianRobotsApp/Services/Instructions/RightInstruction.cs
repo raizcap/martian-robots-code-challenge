@@ -17,8 +17,11 @@ namespace MartianRobotsApp.Services.Instructions
 
         private void ExecuteInstruction(Robot robot)
         {
-            robot.orientation = (Orientation)Enum.GetValues<Orientation>()
-                .GetValue(((int)robot.orientation + 1) % Enum.GetValues<Orientation>().Length);
+            var newElementIndex = ((int)robot.orientation + 1) % Enum.GetValues<Orientation>().Length;
+            if (newElementIndex < 0) newElementIndex += Enum.GetValues<Orientation>().Length;
+
+            robot.orientation = (Orientation)Enum.GetValues<Orientation>().
+                    GetValue(newElementIndex);
         }
     }
 }

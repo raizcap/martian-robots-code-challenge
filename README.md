@@ -36,3 +36,6 @@ If there is no error, you should see two Docker containers running: CodeChalleng
   2. Once it's running, run CodeChallengeAPI container.
    
   3. If the API stops due to an error, try againg some seconds later. It could be that the DB was still not ready.
+
+## Running the application
+

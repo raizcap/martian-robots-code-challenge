@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+    <PackageReference Include="NSubstitute" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MartianRobotsApp\MartianRobotsApp.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Communication\" />
+    <None Remove="Communication\RobotsConnectorTests\" />
+    <None Remove="Services\" />
+    <None Remove="Services\Instructions\" />
+    <None Remove="Services\Instructions\ForwardInstructionTests\" />
+    <None Remove="Services\Instructions\LeftInstructionTests\" />
+    <None Remove="Services\Instructions\RightInstructionTests\" />
+    <None Remove="Services\ArgumentsCheckerServiceTests\" />
+    <None Remove="Services\FileCheckerServiceTests\" />
+    <None Remove="Services\FileContentManagerServiceTests\" />
+    <None Remove="Services\MarsSurfaceServiceTests\" />
+    <None Remove="Services\RobotInstructionsManagerServiceTests\" />
+    <None Remove="Services\RobotsServiceTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Communication\" />
+    <Folder Include="Communication\RobotsConnectorTests\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Instructions\" />
+    <Folder Include="Services\Instructions\ForwardInstructionTests\" />
+    <Folder Include="Services\Instructions\LeftInstructionTests\" />
+    <Folder Include="Services\Instructions\RightInstructionTests\" />
+    <Folder Include="Services\ArgumentsCheckerServiceTests\" />
+    <Folder Include="Services\FileCheckerServiceTests\" />
+    <Folder Include="Services\FileContentManagerServiceTests\" />
+    <Folder Include="Services\MarsSurfaceServiceTests\" />
+    <Folder Include="Services\RobotInstructionsManagerServiceTests\" />
+    <Folder Include="Services\RobotsServiceTests\" />
+  </ItemGroup>
+</Project>

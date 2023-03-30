@@ -68,12 +68,7 @@ namespace MartianRobotsApp.Services
 
             foreach (var robot in mRobotsList)
             {
-                var lostText = robot.status == RobotStatus.LOST ? RobotStatus.LOST.ToString() : string.Empty;
-
-                result.WriteLine($"{robot.xCoordinate} " +
-                                 $"{robot.yCoordinate} " +
-                                 $"{robot.orientation.ToString()} " +
-                                 $"{lostText}");
+                result.WriteLine(robot.ToString());
                 result.Flush();
             }
 

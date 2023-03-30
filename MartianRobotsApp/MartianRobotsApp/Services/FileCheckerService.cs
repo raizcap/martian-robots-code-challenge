@@ -8,14 +8,12 @@ namespace MartianRobotsApp.Services
     {
         public IFunctionResult CheckFileName(string path)
         {
-            if (Path.Exists(path) && Directory.Exists(path))
+            if (!Directory.Exists(Path.GetDirectoryName(path)) || !Path.Exists(path))
             {
-                return new ErrorFunctionResult(ErrorMessages.INVALID_HOME_PATH);
+                return new ErrorFunctionResult(ErrorMessages.INVALID_PATH);
             }
 
-            var fileExists = File.Exists(path);
-
-            if (!fileExists)
+            if (!File.Exists(path))
             {
                 return new ErrorFunctionResult(ErrorMessages.FILE_DOESNT_EXIST);
             }

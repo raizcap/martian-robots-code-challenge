@@ -18,6 +18,7 @@ namespace MartianRobotsApp
             services.AddSingleton<IMarsSurfaceService, MarsSurfaceService>();
             services.AddSingleton<IFileContentManagerService, FileContentManagerService>();
             services.AddSingleton<IInstructionsService, InstructionsService>();
+            services.AddSingleton<IFileReaderService, FileReaderService>();
 
             RegisterInstructions(services);
 
