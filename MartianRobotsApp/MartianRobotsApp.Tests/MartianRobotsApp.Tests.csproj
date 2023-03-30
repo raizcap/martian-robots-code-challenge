@@ -30,6 +30,9 @@
     <None Remove="Services\ArgumentsCheckerServiceTests\" />
     <None Remove="Services\FileCheckerServiceTests\" />
     <None Remove="Services\FileContentManagerServiceTests\" />
+    <None Remove="Services\MarsSurfaceServiceTests\" />
+    <None Remove="Services\RobotInstructionsManagerServiceTests\" />
+    <None Remove="Services\RobotsServiceTests\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Communication\" />
@@ -42,5 +45,8 @@
     <Folder Include="Services\ArgumentsCheckerServiceTests\" />
     <Folder Include="Services\FileCheckerServiceTests\" />
     <Folder Include="Services\FileContentManagerServiceTests\" />
+    <Folder Include="Services\MarsSurfaceServiceTests\" />
+    <Folder Include="Services\RobotInstructionsManagerServiceTests\" />
+    <Folder Include="Services\RobotsServiceTests\" />
   </ItemGroup>
 </Project>

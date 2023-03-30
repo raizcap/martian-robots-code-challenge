@@ -25,7 +25,7 @@ namespace MartianRobotsApp.Services
 
         public IFunctionResult LoadRobots(ICollection<string> fileContent)
         {
-            IFunctionResult result = new OkFunctionResult(); ;
+            IFunctionResult result = new OkFunctionResult();
 
             for (int positionLineIndex = 0, instructionsLineIndex = 1, robotNumber = 1;
                  instructionsLineIndex < fileContent.Count && result.Exit == false;
@@ -34,12 +34,17 @@ namespace MartianRobotsApp.Services
                 var positionLine = fileContent.ElementAt(positionLineIndex);
                 var instructionsLine = fileContent.ElementAt(instructionsLineIndex);
 
+                result = CheckInitialPositionFormat(robotNumber, positionLine);
+
+                if (result.Exit)
+                {
+                    continue;
+                }
+
                 var parts = positionLine.Split(" ");
                 var x = int.Parse(parts[0]);
                 var y = int.Parse(parts[1]);
                 var orientation = parts[2];
-
-                result = CheckInitialPositionFormat(robotNumber, positionLine);
 
                 if (!result.Exit)
                 {

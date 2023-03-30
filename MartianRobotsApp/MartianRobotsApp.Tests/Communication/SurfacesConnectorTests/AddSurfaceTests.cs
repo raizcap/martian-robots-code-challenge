@@ -33,13 +33,8 @@ namespace MartianRobotsApp.Tests.Communication.SurfacesConnectorTests
 
         public override void OnInit()
         {
-            var surface = new Surface()
-            {
-                lostRobots = new List<LostRobot>(),
-                surfaceId = 1,
-                xSize = 1,
-                ySize = 1
-            };
+            var surface = new Surface(1, 1, 1);
+
             mHttpClient.PostAsync<Surface>(Arg.Any<string>()).Returns<Surface>(surface);
         }
     }
