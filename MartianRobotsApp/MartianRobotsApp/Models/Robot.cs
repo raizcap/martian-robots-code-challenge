@@ -7,7 +7,11 @@ namespace MartianRobotsApp.Models
         public int yCoordinate;
         public Orientation orientation;
         public RobotStatus status;
-        public readonly string instructions;
+        public readonly string instructions = "";
+
+        public Robot()
+        {
+        }
 
         public Robot(int x, int y, Orientation orientation, string instructions)
         {

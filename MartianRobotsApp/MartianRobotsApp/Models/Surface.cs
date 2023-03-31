@@ -11,6 +11,11 @@ namespace MartianRobotsApp.Models
 
         public ICollection<LostRobot> lostRobots { get; set; }
 
+		public Surface()
+		{
+			lostRobots = new List<LostRobot>();
+		}
+
         public Surface(int surfaceId, int xSize, int ySize, ICollection<LostRobot> lostRobots)
 		{
 			this.surfaceId = surfaceId;
