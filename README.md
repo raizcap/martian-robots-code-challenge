@@ -11,7 +11,7 @@ The application consists of three parts: database, API and core application. The
 
 In that process, the application accesses to the API to retrieve and store data in the database about the loaded surfaces and the previously robots lost in a concrete Mars surface. For example, if a robot was lost previously in x = 2, y = 3 and orientation = E with instruction = F as the last processed instruction, that instruction will be omitted and the application will continue with the next one. This database is created by the API using Entity Framework code-first approach.
 
-The database and the API are hosted in separated Docker containers as microservices, and both are in the same docker network in order to communicate easier between them.
+The database and the API are hosted in separated Docker containers as microservices, and both are in the same docker network, named "codechallenge-network", to make it easier for them to communicate with each other.
 
 ## Preparing the environment
 
@@ -80,3 +80,8 @@ The database is a SQL Server 2022 Docker container, and it's accesible with the 
 If you want to reset the database data, for example in order the database to forget the lost robots, you have to delete the desired rows manually and after that reboot the API Docker container (or you can also stop the API Docker container, delete the rows and finally start the container, but it's one step more).
 
 The API is accesible vía Swagger here: [http://localhost:5005/swagger](http://localhost:5005/swagger)
+
+## Tests
+I have written only unit tests in the core application, MartianRobotsApp, because the DB project doesn't contain code that needs to be tested and the API project only contains models without logic, controllers that only use the services and services that use the Entity Framework functions. Tests here wouldn't be interesting because there are no E2E nor integration tests, and the most important part to test is the core application.
+
+For these tests I have used MSTest along with NSubstitute for mocking the dependencies.
