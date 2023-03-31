@@ -31,10 +31,7 @@ namespace MartianRobotsApp
 
         public void Run(string[] args)
         {
-            // Firstly check if the given path is valid
-            mFilePath = mFileCheckerService.GetValidPath(args[0]);
-
-            // Later check that the command has only one argument and the file exists
+            // Firstly check that the command has only one argument and the file exists
             var result = InitialChecks(args);
 
             // Afterwards read the content of the file: Mars surface and robots instructions
@@ -72,6 +69,9 @@ namespace MartianRobotsApp
 
             if (!result.Exit)
             {
+                // Get a valid path in case that it starts with ~ or it contains double slashes
+                mFilePath = mFileCheckerService.GetValidPath(args[0]);
+
                 result = mFileCheckerService.CheckFileName(mFilePath);
             }
 
