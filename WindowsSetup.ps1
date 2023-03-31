@@ -8,3 +8,6 @@ docker run --name CodeChallengeAPI --network codechallenge-network -p 5005:5005 
 
 dotnet restore ./MartianRobotsApp/MartianRobotsApp/MartianRobotsApp.csproj --disable-parallel
 dotnet build ./MartianRobotsApp/MartianRobotsApp/MartianRobotsApp.csproj --disable-parallel -c release --no-restore
+
+Write-Host "The process has finished."
+pause
