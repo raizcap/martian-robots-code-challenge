@@ -1,25 +1,25 @@
 # Martian robots code challenge
 
 ## Prerequisites
-- MacOS (currently the only one OS where the solution has been tested is MacOS. Tests on Windows are pending.)
+- MacOS, Linux or Windows, this application works on all of them
 - Docker
-- .NET 7.0
+- .NET >=7.0 SDK (the application modules are compiled in the setup process)
 - Internet connection (Docker images are downloaded from the Internet in case they haven't been downloaded previously)
 
 ## Project explanation
-The application consists of three parts: database, API and core application. The core application loads data from an input file (this is explained in "[Running the application](#running-the-application)" section), does several checks, processes the robots instructions and gives the final result in the console.
+The application consists of three parts: database, API and core application. The core application has to be executed in a console and loads data from an input file (this is explained in "[Running the application](#running-the-application)" section), does several checks, processes the robots instructions and shows the final result in the console.
 
-In that process, the application accesses to the API to retrieve and store data about the loaded surfaces and the robots lost previously in a concrete Mars surface. For example, if a robot was lost previously in x=2, y=3 and orientation=E with instruction=F as the last processed instruction, that instruction will be omited and the application will continue with the next one. This database is created by the API using Entity Framework code-first.
+In that process, the application accesses to the API to retrieve and store data in the database about the loaded surfaces and the previously robots lost in a concrete Mars surface. For example, if a robot was lost previously in x = 2, y = 3 and orientation = E with instruction = F as the last processed instruction, that instruction will be omitted and the application will continue with the next one. This database is created by the API using Entity Framework code-first approach.
 
 The database and the API are hosted in separated Docker containers as microservices, and both are in the same docker network in order to communicate easier between them.
 
 ## Preparing the environment
 
-There are two ways to prepare the environment: execute the OS dependant setup script or execute the docker and the application build commands manually in the correct order.
+There are two ways to prepare the environment: **execute the OS dependant setup script** or **execute the docker and the application build commands** manually in the <u>correct order</u>.
 
-- Executing the setup script: run the <u>**MacLinuxSetup.sh**</u> script in the folder where it's located (martian-robots-code-challenge).
+- Executing the setup script: run <u>**MacLinuxSetup.sh**</u> or <u>**WindowsSetup.sh**</u> script, depending on the host OS, in the folder where it's located (martian-robots-code-challenge).
 
-- Running the next commands in Terminal (Mac) or Powershell (Windows) for creating and running the Docker containters:
+- Running the next commands in Terminal (Mac) or Powershell (Windows) for creating and running the Docker containters and for building the application in release mode:
 
   1. Create a custom Docker network for allowing containers to communicate to each other with the next command: 
 
@@ -47,14 +47,14 @@ If there is no error, you should see two Docker containers running: CodeChalleng
    
   2. Once it's running, run CodeChallengeAPI container.
    
-  3. If the API stops due to an error, try againg some seconds later. It could be that the DB was still not ready.
+  3. If the API stops due to an error, try againg some seconds later. It could be that the DB was still not ready to receive connections.
 
 ## Running the application
-The application dll is located in a folder named "TARGET", in the application root folder. The command to execute the application is this one:
+The application dll is located in a folder named "TARGET", in the application root folder (martian-robots-code-challenge). The command to execute the application the next one:
       
         dotnet MartianRobotsApp.dll <path to file>
 
-The file must be a plain text file and it must contain the input data explained in the provided code challenge PDF. The path to the file can be specified with relative or absolute paths, and in MacOS/Linux also with the user folder character (~).
+The file must be a plain text file (or .txt) and it must contain the input data explained in the provided code challenge PDF. The path to the file can be specified with relative or absolute paths, and also with the MacOS/Linux user folder "~" (yes, even in Windows).
 
 This is the example file content:
 
@@ -77,6 +77,6 @@ The database is a SQL Server 2022 Docker container, and it's accesible with the 
       Ecrypt: Optional (false)
       Trust server certificate: false
 
-If you want to reset the database data, for example in order the database to forget the lost robots, you have to delete the desired rows manually and after that reboot the API Docker container.
+If you want to reset the database data, for example in order the database to forget the lost robots, you have to delete the desired rows manually and after that reboot the API Docker container (or you can also stop the API Docker container, delete the rows and finally start the container, but it's one step more).
 
 The API is accesible vía Swagger here: [http://localhost:5005/swagger](http://localhost:5005/swagger)
