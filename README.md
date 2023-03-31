@@ -15,9 +15,9 @@ The database and the API are hosted in separated Docker containers as microservi
 
 ## Preparing the environment
 
-There are two ways to prepare the environment: execute the OS dependant setup script or execute the docker commands in the correct order.
+There are two ways to prepare the environment: execute the OS dependant setup script or execute the docker and the application build commands manually in the correct order.
 
-- Executing the setup script: run the <u>**MacSetup.sh**</u> script in the folder where it's located.
+- Executing the setup script: run the <u>**MacLinuxSetup.sh**</u> script in the folder where it's located (martian-robots-code-challenge).
 
 - Running the next commands in Terminal (Mac) or Powershell (Windows) for creating and running the Docker containters:
 
@@ -36,6 +36,11 @@ There are two ways to prepare the environment: execute the OS dependant setup sc
   4. Run the previously created Docker image for executing the API: 
 
             docker run --name CodeChallengeAPI --network codechallenge-network -p 5005:5005 -e 'ASPNETCORE_URLS=http://*:5005' -d code-challenge:v1
+
+  5. Execute the next two commands in order to build the application (it seems weird, but sometimes dotnet build command doesn't restore the packages properly and the solution is to execute a restore and later execute a build with --no-restore):
+
+            dotnet restore ./MartianRobotsApp/MartianRobotsApp/MartianRobotsApp.csproj --disable-parallel
+            dotnet build ./MartianRobotsApp/MartianRobotsApp/MartianRobotsApp.csproj --disable-parallel -c release --no-restore
 
 If there is no error, you should see two Docker containers running: CodeChallengeDB and CodeChallengeAPI. Both have to be running before executing the application. In case you want to run them manually:
   1. First run CodeChallengeDB container.
