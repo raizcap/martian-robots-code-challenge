@@ -9,7 +9,7 @@
 ## Project explanation
 The application consists of three parts: database, API and core application. The core application has to be executed in a console and loads data from an input file (this is explained in "[Running the application](#running-the-application)" section), does several checks, processes the robots instructions and shows the final result in the console.
 
-In that process, the application accesses to the API to retrieve and store data in the database about the loaded surfaces and the previously robots lost in a concrete Mars surface. For example, if a robot was lost previously in x = 2, y = 3 and orientation = E with instruction = F as the last processed instruction, that instruction will be omitted and the application will continue with the next one. This database is created by the API using Entity Framework code-first approach.
+In that process, the application accesses to the API to retrieve and store data in the database about the loaded surfaces and the previously lost robots in a concrete Mars surface. For example, if a robot was lost previously in x = 2, y = 3 and orientation = E with instruction = F as the last processed instruction, that instruction will be omitted and the application will continue with the next one. This database is created by the API using Entity Framework code-first approach.
 
 The database and the API are hosted in separated Docker containers as microservices, and both are in the same docker network, named "codechallenge-network", to make it easier for them to communicate with each other.
 
@@ -29,7 +29,7 @@ There are two ways to prepare the environment: **execute the OS dependant setup 
    
             docker run --name CodeChallengeDB --network codechallenge-network -p 1433:1433 -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=Cod3.Challeng3' -d mcr.microsoft.com/mssql/server:2022-latest
 
-  3. Build the Docker image for the API (this one must be executed in the API solution root folder): 
+  3. Build the Docker image for the API (this one must be executed in the API solution root folder, where "Dockerfile" is located): 
 
             docker build -t code-challenge:v1 .
 
@@ -50,7 +50,7 @@ If there is no error, you should see two Docker containers running: CodeChalleng
   3. If the API stops due to an error, try againg some seconds later. It could be that the DB was still not ready to receive connections.
 
 ## Running the application
-The application dll is located in a folder named "TARGET", in the application root folder (martian-robots-code-challenge). The command to execute the application the next one:
+The application dll is located in a folder named "TARGET", in the application root folder (martian-robots-code-challenge). The command to execute the application is the next one:
       
         dotnet MartianRobotsApp.dll <path to file>
 
@@ -66,7 +66,7 @@ This is the example file content:
       0 3 W
       LLFFFRFLFL
 
-When the application is started it writes to the console the processed robots and the final result. If a robot is lost, the word "LOST" will appear next to the final coordinates and orientation. If the robot continues being reachable, nothing will be shown in the results next to the final data.
+When the application is started it writes to the console any error related with the path, file format or an instruction, and if all checks are successful the processed robots and the final result are written. If a robot has been lost, the word "LOST" will appear next to the final coordinates and orientation. If the robot is still reachable after all its instructions have been processed, nothing will be shown in the results next to the final data.
 
 ## Microservices
 The database is a SQL Server 2022 Docker container, and it's accesible with the next credentials:
